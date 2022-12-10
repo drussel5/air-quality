@@ -1,38 +1,71 @@
 import 'semantic-ui-css/semantic.min.css'
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { CityDropdown } from './Components/CityDropdown';
 import { useCitiesList } from './Hooks/useCitiesList';
 import { MeasurementList } from './Components/MeasurementList';
 
 function App() {
-    const [city, setCity] = useState('');
-    const [measurements, setMeasurements] = useState([])
+    const [cityA, setCityA] = useState('');
+    const [cityB, setCityB] = useState('');
+    const [measurementsA, setMeasurementsA] = useState([])
+    const [measurementsB, setMeasurementsB] = useState([])
     const cities = useCitiesList();
 
+    const centerStyle = {
+        margin: 'auto',
+        width: '50%',
+        padding: '10px',
+        textAlign: 'center',
+    };
+
+    const dropdownStyle = {
+        float: 'left',
+        margin: 'auto',
+        width: '50%',
+    };
+
     useEffect(() => {
-        if (city) {
-            const url = `https://api.openaq.org/v2/latest?city=${city}`
+        if (cityA) {
+            const url = `https://api.openaq.org/v2/latest?city=${cityA}`
             fetch(url)
                 .then((response) => response.json())
                 .then((data) => {
-                    setMeasurements(data.results);
+                    setMeasurementsA(data.results);
                 })
                 .catch((err) => {
                     console.log(err.message);
                 })
         }
        
-    }, [city])
+    }, [cityA])
+
+    useEffect(() => {
+        if (cityB) {
+            const url = `https://api.openaq.org/v2/latest?city=${cityB}`
+            fetch(url)
+                .then((response) => response.json())
+                .then((data) => {
+                    setMeasurementsB(data.results);
+                })
+                .catch((err) => {
+                    console.log(err.message);
+                })
+        }
+       
+    }, [cityB])
 
     return (
         <>
-            <div className="App">
+            <h1 className="App" style={centerStyle}>
                 Air Quality
+            </h1>
+            <div style={dropdownStyle}>
+                <CityDropdown city={cityA} setCity={setCityA} cities={cities} />
+                <MeasurementList measurements={measurementsA} />
             </div>
-            <div>
-                <CityDropdown city={city} setCity={setCity} cities={cities} />
-                ---{city}---
-                <MeasurementList measurements={measurements} />
+            <div style={dropdownStyle}>
+                <CityDropdown city={cityB} setCity={setCityB} cities={cities} />
+                <MeasurementList measurements={measurementsB} />
             </div>
         </>
     );
