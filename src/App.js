@@ -1,25 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import 'semantic-ui-css/semantic.min.css'
+import { useEffect, useState } from 'react';
+import { CityDropdown } from './Components/CityDropdown';
+import { useCitiesList } from './Hooks/useCitiesList';
+import { MeasurementList } from './Components/MeasurementList';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [city, setCity] = useState('');
+    const [measurements, setMeasurements] = useState([])
+    const cities = useCitiesList();
+
+    useEffect(() => {
+        if (city) {
+            const url = `https://api.openaq.org/v2/latest?city=${city}`
+            fetch(url)
+                .then((response) => response.json())
+                .then((data) => {
+                    setMeasurements(data.results);
+                })
+                .catch((err) => {
+                    console.log(err.message);
+                })
+        }
+       
+    }, [city])
+
+    return (
+        <>
+            <div className="App">
+                Air Quality
+            </div>
+            <div>
+                <CityDropdown city={city} setCity={setCity} cities={cities} />
+                ---{city}---
+                <MeasurementList measurements={measurements} />
+            </div>
+        </>
+    );
 }
 
 export default App;
