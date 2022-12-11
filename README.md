@@ -1,3 +1,8 @@
+Welcome to Air Quality. This application allows a user to compare air quality from two cities.
+Once the app is started with `yarn start` open your browser to [http://localhost:3000] to use the application.
+Select a city from the dropdown menu, you can search for a city by typing it into the dropdown as well,
+and then search for another city in the other dropdown. The air quality of the cities will be displayed automatically after selection. 
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

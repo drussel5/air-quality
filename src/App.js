@@ -1,4 +1,5 @@
 import 'semantic-ui-css/semantic.min.css'
+import { centerStyle, dropdownStyle } from './styles.js'
 import { useState, useEffect } from 'react';
 import { CityDropdown } from './Components/CityDropdown';
 import { useCitiesList } from './Hooks/useCitiesList';
@@ -10,19 +11,6 @@ function App() {
     const [measurementsA, setMeasurementsA] = useState([])
     const [measurementsB, setMeasurementsB] = useState([])
     const cities = useCitiesList();
-
-    const centerStyle = {
-        margin: 'auto',
-        width: '50%',
-        padding: '10px',
-        textAlign: 'center',
-    };
-
-    const dropdownStyle = {
-        float: 'left',
-        margin: 'auto',
-        width: '50%',
-    };
 
     useEffect(() => {
         if (cityA) {
