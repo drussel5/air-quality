@@ -4,7 +4,7 @@ export const useCitiesList = () => {
     const [cities, setCities] = useState([]);
 
     useEffect(() => {
-        fetch('https://api.openaq.org/v2/cities?limit=1000')
+        fetch('https://api.openaq.org/v2/cities?limit=10000')
             .then((response) => response.json())
             .then((data) => {
                 setCities(data.results);
