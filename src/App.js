@@ -1,9 +1,10 @@
 import 'semantic-ui-css/semantic.min.css'
 import { centerStyle, dropdownStyle } from './styles.js'
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { CityDropdown } from './Components/CityDropdown';
 import { useCitiesList } from './Hooks/useCitiesList';
 import { MeasurementList } from './Components/MeasurementList';
+import { useMeasurements } from './Hooks/useMeasurements.js';
 
 function App() {
     const [cityA, setCityA] = useState('');
@@ -12,35 +13,38 @@ function App() {
     const [measurementsB, setMeasurementsB] = useState([])
     const cities = useCitiesList();
 
-    useEffect(() => {
-        if (cityA) {
-            const url = `https://api.openaq.org/v2/latest?city=${cityA}`
-            fetch(url)
-                .then((response) => response.json())
-                .then((data) => {
-                    setMeasurementsA(data.results);
-                })
-                .catch((err) => {
-                    console.log(err.message);
-                })
-        }
-       
-    }, [cityA])
+    useMeasurements(cityA, setMeasurementsA);
+    useMeasurements(cityB, setMeasurementsB);
 
-    useEffect(() => {
-        if (cityB) {
-            const url = `https://api.openaq.org/v2/latest?city=${cityB}`
-            fetch(url)
-                .then((response) => response.json())
-                .then((data) => {
-                    setMeasurementsB(data.results);
-                })
-                .catch((err) => {
-                    console.log(err.message);
-                })
-        }
+    // useEffect(() => {
+    //     if (cityA) {
+    //         const url = `https://api.openaq.org/v2/latest?city=${cityA}`
+    //         fetch(url)
+    //             .then((response) => response.json())
+    //             .then((data) => {
+    //                 setMeasurementsA(data.results);
+    //             })
+    //             .catch((err) => {
+    //                 console.log(err.message);
+    //             })
+    //     }
        
-    }, [cityB])
+    // }, [cityA])
+
+    // useEffect(() => {
+    //     if (cityB) {
+    //         const url = `https://api.openaq.org/v2/latest?city=${cityB}`
+    //         fetch(url)
+    //             .then((response) => response.json())
+    //             .then((data) => {
+    //                 setMeasurementsB(data.results);
+    //             })
+    //             .catch((err) => {
+    //                 console.log(err.message);
+    //             })
+    //     }
+       
+    // }, [cityB])
 
     return (
         <>

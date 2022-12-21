@@ -1,8 +1,6 @@
 import { useEffect } from 'react';
 
-export const useMeasurements = (props) => {
-    const {city, setMeasurements} = props;
-    
+export const useMeasurements = (city, setMeasurements) => {
     useEffect(() => {
         if (city) {
             const url = `https://api.openaq.org/v2/latest?city=${city}`
