@@ -12,39 +12,8 @@ function App() {
     const [measurementsA, setMeasurementsA] = useState([])
     const [measurementsB, setMeasurementsB] = useState([])
     const cities = useCitiesList();
-
     useMeasurements(cityA, setMeasurementsA);
     useMeasurements(cityB, setMeasurementsB);
-
-    // useEffect(() => {
-    //     if (cityA) {
-    //         const url = `https://api.openaq.org/v2/latest?city=${cityA}`
-    //         fetch(url)
-    //             .then((response) => response.json())
-    //             .then((data) => {
-    //                 setMeasurementsA(data.results);
-    //             })
-    //             .catch((err) => {
-    //                 console.log(err.message);
-    //             })
-    //     }
-       
-    // }, [cityA])
-
-    // useEffect(() => {
-    //     if (cityB) {
-    //         const url = `https://api.openaq.org/v2/latest?city=${cityB}`
-    //         fetch(url)
-    //             .then((response) => response.json())
-    //             .then((data) => {
-    //                 setMeasurementsB(data.results);
-    //             })
-    //             .catch((err) => {
-    //                 console.log(err.message);
-    //             })
-    //     }
-       
-    // }, [cityB])
 
     return (
         <>
